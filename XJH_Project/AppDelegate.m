@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "XJHTabBarController.h"
+#import <JSPatchPlatform/JSPatch.h>
 
 @interface AppDelegate ()
 
@@ -16,7 +18,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+//    [JSPatch startWithAppKey:@"f7198a45616d1ae7"];
+    [JSPatch testScriptInBundle];//测试
+    self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor=[UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    XJHTabBarController *tabBarVC=[XJHTabBarController shareSingeleton];
+    self.window.rootViewController=tabBarVC;
     return YES;
 }
 
@@ -35,6 +43,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [JSPatch sync];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
